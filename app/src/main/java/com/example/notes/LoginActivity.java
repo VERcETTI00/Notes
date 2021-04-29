@@ -24,7 +24,11 @@ public class LoginActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (username.toString() == "aman" && password.toString() == "qwert")
+
+                String mUsername = username.getText().toString();
+                String mPassword = password.getText().toString();
+
+                if (mUsername.equals("aman")&&mPassword.equals("qwert"))
                     startActivity(new Intent(LoginActivity.this,MenuActivity.class));
                 else
                     Toast.makeText(LoginActivity.this,"Incorrect Username or Password", Toast.LENGTH_SHORT).show();
