@@ -12,6 +12,7 @@
     <color name="green">#6BC58A</color>
     <color name="red">#FF778A</color>
     <color name="purple">#FF9FEB</color>
+    <color name="faded_white">#82FFFFFF</color>
 
     <integer-array name="androidcolors">
         <item>@color/blue</item>

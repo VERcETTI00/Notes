@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.RecyclerViewHolder>{
-    CardView card;
-    RandomColors randomColors;
 
     private ArrayList<CardItems>xList;
 
@@ -41,9 +39,6 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.Recycl
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        card = card.findViewById(R.id.card_view);
-        int colors = randomColors.getColor();
-        card.setCardBackgroundColor(colors);
 
 
         CardItems currentItem = xList.get(position);
