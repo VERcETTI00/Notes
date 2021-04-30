@@ -2,13 +2,21 @@ package com.example.notes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.internal.BaseGmsClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -17,13 +25,26 @@ public class MenuActivity extends AppCompatActivity {
     private RecyclerView xRecyclerView;
     private RecyclerView.Adapter xAdapter;
     private RecyclerView.LayoutManager xLayoutManager;
-
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        firestore = FirebaseFirestore.getInstance();
+        firestore.collection("notes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d("Note Data", document.getId() + " => " + document.getData());
+                    }
+                }
+                else
+                    System.out.println("Error Getting Docs");
+            }
+        });
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
 
         ArrayList<CardItems> exampleList = new ArrayList<>();

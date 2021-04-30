@@ -9,8 +9,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LoginActivity extends AppCompatActivity {
 
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,17 +25,22 @@ public class LoginActivity extends AppCompatActivity {
         EditText username = findViewById(R.id.username);
         EditText password = findViewById(R.id.password);
         Button logInButton = findViewById(R.id.logInButton);
+        auth = FirebaseAuth.getInstance();
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String mUsername = username.getText().toString();
                 String mPassword = password.getText().toString();
-
-                if (mUsername.equals("aman")&&mPassword.equals("qwert"))
-                    startActivity(new Intent(LoginActivity.this,MenuActivity.class));
-                else
-                    Toast.makeText(LoginActivity.this,"Incorrect Username or Password", Toast.LENGTH_SHORT).show();
+                auth.signInWithEmailAndPassword(mUsername,mPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        if(authResult != null)
+                            startActivity(new Intent(LoginActivity.this,MenuActivity.class));
+                        else
+                            Toast.makeText(LoginActivity.this,"Incorrect Username or Password", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
