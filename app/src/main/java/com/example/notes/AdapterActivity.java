@@ -6,15 +6,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.RecyclerViewHolder>{
 
-    private ArrayList<CardItems>xList;
+    public ArrayList<NOTES>xList;
 
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder{
         public TextView xHeadView;
@@ -26,7 +24,7 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.Recycl
         }
     }
 
-    public AdapterActivity(ArrayList<CardItems> list){ xList = list;
+    public AdapterActivity(ArrayList<NOTES> list){ xList = list;
     }
 
     @NonNull
@@ -41,7 +39,7 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.Recycl
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
 
 
-        CardItems currentItem = xList.get(position);
+        NOTES currentItem = xList.get(position);
 
         holder.xHeadView.setText(currentItem.getHead());
         holder.xDateView.setText(currentItem.getDate());

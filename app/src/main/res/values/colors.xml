@@ -13,6 +13,7 @@
     <color name="red">#FF778A</color>
     <color name="purple">#FF9FEB</color>
     <color name="faded_white">#82FFFFFF</color>
+    <color name="faded_black">#808080</color>
 
     <integer-array name="androidcolors">
         <item>@color/blue</item>

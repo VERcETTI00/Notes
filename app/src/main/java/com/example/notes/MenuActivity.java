@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.internal.BaseGmsClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,6 +31,8 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        ArrayList<NOTES> exampleList = new ArrayList<>();
+
         firestore = FirebaseFirestore.getInstance();
         firestore.collection("notes").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -39,6 +40,10 @@ public class MenuActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Log.d("Note Data", document.getId() + " => " + document.getData());
+                        NOTES notes = new NOTES(document.get("title").toString(),document.get("data").toString());
+                        exampleList.add(notes);
+                        System.out.println(notes.xhead);
+                        System.out.println(notes.xbody);
                     }
                 }
                 else
@@ -47,12 +52,13 @@ public class MenuActivity extends AppCompatActivity {
         });
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
 
-        ArrayList<CardItems> exampleList = new ArrayList<>();
-        exampleList.add(new CardItems("tellus in metus vulputate eu", "20 Apr 2021"));
-        exampleList.add(new CardItems("asdfghjksdfghjkfghjkl", "20 Apr 2021"));
-        exampleList.add(new CardItems("asdfghjksdfghjkfghjkl", "20 Apr 2021"));
-        exampleList.add(new CardItems("asdfghjksdfghjkfghjkl", "20 Apr 2021"));
-        exampleList.add(new CardItems("asdfghjksdfghjkfghjkl", "20 Apr 2021"));
+
+//        exampleList.add(new NOTES("tellus in metus vulputate eu", "20 Apr 2021"));
+//        exampleList.add(new NOTES("asdfghjksdfghjkfghjkl", "20 Apr 2021"));
+//        exampleList.add(new NOTES("asdfghjksdfghjkfghjkl", "20 Apr 2021"));
+//        exampleList.add(new NOTES("asdfghjksdfghjkfghjkl", "20 Apr 2021"));
+//        exampleList.add(new NOTES("asdfghjksdfghjkfghjkl", "20 Apr 2021"));
+//        exampleList.add(new NOTES("test hardcoded", "7 may 2021"));
 
         xRecyclerView = findViewById(R.id.recyclerView);
         xRecyclerView.setHasFixedSize(true);
